@@ -1,0 +1,27 @@
+commit 069827cdcc2ad345be2e37d619118de41b34aa66
+Author: Anand Chitipothu <anandology@gmail.com>
+Date:   2012-08-02 22:47:46 +0530
+
+    Fixed failing tests in test/session.py when postgres is not installed. (tx Michael Diamond)
+
+commit 615d09c82cf1e53140ac5e59ce90024a2d7299a9
+Author: Anand Chitipothu <anandology@gmail.com>
+Date:   2012-06-26 10:48:11 +0530
+
+    Added ChangeLog.
+
+commit 6e1e7d21347b13be4d35d741c09fc72118285a0d
+Author: Anand Chitipothu <anandology@gmail.com>
+Date:   2012-06-05 16:21:14 +0530
+
+    Fixed datestr error on windows. (closes #155)
+    
+    `strftime("%B %e")` doesn't work on Windows. Falling back to "%B %d"
+    in case of failure.
+
+commit 3f4a86cda83948e6ce61749efd427339eb99cc03
+Author: Anand Chitipothu <anandology@gmail.com>
+Date:   2012-05-29 20:37:52 +0530
+
+    test requires MySQL-python not PyMySQL.
+
