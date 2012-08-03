@@ -33,6 +33,17 @@ class GitRepo(object):
         cmd = ['git', 'checkout', '-q', rev]
         subprocess.check_call(cmd, cwd=self.working_dir)
 
+    def commit_num_lines_changed(self, rev):
+        cmd = ['git', 'show', rev]
+        raw = subprocess.check_output(cmd, cwd=self.working_dir)
+
+        changed = 0
+        for line in raw.split("\n"):
+            if line.startswith('+ ') or line.startswith('- '):
+                changed += 1
+
+        return changed
+
     def _check_env(self):
         if os.path.isdir('./tmp') is False:
             os.mkdir('./tmp')
