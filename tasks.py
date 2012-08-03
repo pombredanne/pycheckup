@@ -4,7 +4,10 @@ from celery import Celery
 from celery.utils.log import get_task_logger
 from pycheckup import document, mongo
 from pycheckup.git import GitRepo
-from pycheckup.probes import license, popularity, readme, setup_py, tabs_or_spaces
+from pycheckup.probes import (
+    license, popularity, readme, setup_py, tabs_or_spaces,
+    commits, line_count, pep8, pyflakes, swearing
+)
 
 
 celery = Celery('tasks', broker=os.getenv('REDISTOGO_URL', 'redis://localhost'))
@@ -39,7 +42,7 @@ def bootstrap_repo(user, repo_name):
 
     current_rev = None
 
-    for _ in range(5):
+    for _ in range(52):
         for c in repo.commits:
             if c['date'] <= working_date:
                 # Only check it out if we need to
@@ -50,7 +53,11 @@ def bootstrap_repo(user, repo_name):
                 current_rev = c['rev']
 
                 # weekly probes
-                print 'PROBULATOR'
+                commits.run(repo, doc, working_date)
+                line_count.run(repo, doc, working_date)
+                pep8.run(repo, doc, working_date)
+                pyflakes.run(repo, doc, working_date)
+                swearing.run(repo, doc, working_date)
                 break
 
         working_date -= one_week
