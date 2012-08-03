@@ -2,3 +2,5 @@
 *.pyc
 /venv
 /tmp
+redis.conf
+Procfile-dev

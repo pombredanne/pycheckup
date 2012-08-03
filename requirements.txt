@@ -3,3 +3,6 @@ beautifulsoup4
 pep8
 pyflakes
 nose
+redis
+Celery
+pymongo
