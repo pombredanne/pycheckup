@@ -25,7 +25,7 @@ def run(repo, doc, on_date):
     # Pyflakes violations show up in stderr.
     # If there are none, return a total of 0.
     try:
-        subprocess.check_output(cmd)
+        subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         result = {'total': 0}
     except subprocess.CalledProcessError, e:
         result = parse_results(e.output)
