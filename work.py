@@ -1,5 +1,12 @@
-from pycheckup.git import GitRepo
-import tasks
+import csv
+from tasks import bootstrap_repo
 
 
-tasks.bootstrap_repo.delay('facebook', 'tornado')
+with open('data/repos100.csv') as f:
+   reader = csv.reader(f)
+
+   for row in reader:
+       user, repo = row
+       bootstrap_repo.delay(user, repo)
+
+print 'Finished'
