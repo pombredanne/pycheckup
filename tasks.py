@@ -62,8 +62,7 @@ def bootstrap_repo(user, repo_name):
 
         working_date -= one_week
 
-    # repo_collection = mongo.db().repositories
-    # repo_collection.save(doc)
-    print doc
+    repo_collection = mongo.db().repositories
+    repo_collection.save(doc)
 
     repo.cleanup()
