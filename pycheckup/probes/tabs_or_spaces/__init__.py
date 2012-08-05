@@ -7,15 +7,18 @@ def run(repo, doc):
     total_spaces = 0
 
     for filename in get_repo_python_files(repo.working_dir):
-        with open(filename, 'r') as f:
-            contents = f.read()
+        try:
+            with open(filename, 'r') as f:
+                contents = f.read()
 
-            num_tabs = contents.count("\t")
-            num_four_spaces = contents.count('    ')
-            num_two_spaces = contents.count('  ') - (num_four_spaces * 2)
+                num_tabs = contents.count("\t")
+                num_four_spaces = contents.count('    ')
+                num_two_spaces = contents.count('  ') - (num_four_spaces * 2)
 
-            total_tabs += num_tabs
-            total_spaces += num_two_spaces + num_four_spaces
+                total_tabs += num_tabs
+                total_spaces += num_two_spaces + num_four_spaces
+        except IOError:
+            pass
 
     if total_tabs >= total_spaces:
         doc['tabs_or_spaces'] = 'tabs'

@@ -20,27 +20,14 @@ def run(repo, doc, end_date):
 
 
 def collaborators(repo):
-    url = 'https://api.github.com/repos/{user}/{repo}/collaborators?page={page}'
+    url = 'https://api.github.com/repos/{user}/{repo}/collaborators'
 
-    got_all_collaborators = False
-    page = 1
-    collaborators = []
-
-    while got_all_collaborators is False:
-        response = requests.get(url.format(
-            user=repo.user,
-            repo=repo.repo_name,
-            page=page
-        ))
-        data = json.loads(response.text)
-        collaborators += [u['login'] for u in data]
-
-        if len(data) < 30:
-            got_all_collaborators = True
-        else:
-            page += 1
-
-    return collaborators
+    response = requests.get(url.format(
+        user=repo.user,
+        repo=repo.repo_name
+    ))
+    data = json.loads(response.text)
+    return [u['login'] for u in data]
 
 
 def map_reduce():

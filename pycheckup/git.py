@@ -70,7 +70,7 @@ class GitRepo(object):
                     'rev': rev,
                     'date': datetime.strptime(date_line[8:-6], '%Y-%m-%d %H:%M:%S')
                 })
-            except TypeError:
+            except (TypeError, ValueError):
                 pass
 
         return commits
