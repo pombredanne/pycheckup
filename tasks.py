@@ -40,27 +40,27 @@ def bootstrap_repo(user, repo_name):
 
     popularity.run(repo, doc, working_date)
 
-    current_rev = None
+    # current_rev = None
 
-    for _ in range(52):
-        for c in repo.commits:
-            if c['date'] <= working_date:
-                # Only check it out if we need to
-                if c['rev'] != current_rev:
-                    logger.info('Checking out %s (%s)' % (c['rev'], c['date']))
-                    repo.checkout(c['rev'])
+    # for _ in range(52):
+    #     for c in repo.commits:
+    #         if c['date'] <= working_date:
+    #             # Only check it out if we need to
+    #             if c['rev'] != current_rev:
+    #                 logger.info('Checking out %s (%s)' % (c['rev'], c['date']))
+    #                 repo.checkout(c['rev'])
 
-                current_rev = c['rev']
+    #             current_rev = c['rev']
 
-                # weekly probes
-                commits.run(repo, doc, working_date)
-                line_count.run(repo, doc, working_date)
-                pep8.run(repo, doc, working_date)
-                pyflakes.run(repo, doc, working_date)
-                swearing.run(repo, doc, working_date)
-                break
+    #             # weekly probes
+    #             commits.run(repo, doc, working_date)
+    #             line_count.run(repo, doc, working_date)
+    #             pep8.run(repo, doc, working_date)
+    #             pyflakes.run(repo, doc, working_date)
+    #             swearing.run(repo, doc, working_date)
+    #             break
 
-        working_date -= one_week
+    #     working_date -= one_week
 
     repo_collection = mongo.db().repositories
     repo_collection.save(doc)
