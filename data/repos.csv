@@ -1,8 +1,5 @@
 facebook,tornado
 mitsuhiko,flask
-django,django
-kennethreitz,requests
-reddit,reddit
 jkbr,httpie
 pinax,pinax
 django-debug-toolbar,django-debug-toolbar
@@ -30,7 +27,6 @@ celery,celery
 django-extensions,django-extensions
 cortesi,mitmproxy
 github,markup
-Kronuz,SublimeCodeIntel
 toastdriven,django-haystack
 RuudBurger,CouchPotato
 ipython,ipython
