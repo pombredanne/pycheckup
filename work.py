@@ -6,7 +6,7 @@ from tasks import bootstrap_repo
 # collection = mongo.db().repositories
 
 
-with open('data/run2.csv') as f:
+with open('data/run3.csv') as f:
     reader = csv.reader(f)
 
     for row in reader:
