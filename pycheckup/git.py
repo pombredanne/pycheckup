@@ -53,23 +53,27 @@ class GitRepo(object):
     def _parse_commit_log(self, log):
         commit_strings = [c for c in log.split("\ncommit ")]
 
-        def parse_commit(raw):
-            rev = raw.split("\n")[0]
-            if rev.startswith('commit '):
-                rev = rev.replace('commit ', '')
+        commits = []
+        for raw in commit_strings:
+            try:
+                rev = raw.split("\n")[0]
+                if rev.startswith('commit '):
+                    rev = rev.replace('commit ', '')
 
-            date_line = None
+                date_line = None
 
-            for line in raw.split("\n"):
-                if line.startswith('Date: '):
-                    date_line = line
+                for line in raw.split("\n"):
+                    if line.startswith('Date: '):
+                        date_line = line
 
-            return {
-                'rev': rev,
-                'date': datetime.strptime(date_line[8:-6], '%Y-%m-%d %H:%M:%S')
-            }
+                commits.append({
+                    'rev': rev,
+                    'date': datetime.strptime(date_line[8:-6], '%Y-%m-%d %H:%M:%S')
+                })
+            except TypeError:
+                pass
 
-        return [parse_commit(c) for c in commit_strings]
+        return commits
 
     def _working_dir(self):
         return './tmp/%s' % self._working_dir_hash()
