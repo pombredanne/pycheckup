@@ -1,0 +1,35 @@
+{% load static_assets %}
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+
+  <title>PyCheckup</title>
+  <meta name="description" content="">
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+  {% static_css 'app' 2 %}
+
+  {% analytics 'abc123' %}
+</head>
+
+<body>
+
+  <header>
+    <div id="logo">PyCheckup</div>
+
+    <ul id="menu">
+      <li><a href="/" id="menu-overview" class="active">Overview</a></li>
+      <li><a href="/projects" id="menu-projects">Projects</a></li>
+      <li><a href="/explore" id="menu-explore">Explore</a></li>
+      <li><a href="/about" id="menu-about">About</a></li>
+    </ul>
+  </header>
+
+  <div id="content">
+    {% block content %}{% endblock %}
+  </div>
+
+  {% static_js 'app' 2 %}
+
+</body>
+</html>

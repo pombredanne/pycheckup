@@ -1,0 +1,17 @@
+select {
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  padding: 6px;
+  padding-right: 30px;
+  background-image: url('../images/select_bg.png');
+  background-position: right;
+  -webkit-appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+select:hover {
+  border: 1px solid #aaa;
+}

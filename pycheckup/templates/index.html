@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+  <h2>
+    PyCheckup is an analysis of the <strong>top 1000 python repositories</strong>
+    on Github
+  </h2>
+
+  <select>
+    <option value="commits">Commits</option>
+    <option value="license">License</option>
+    <option value="line_count">Line Count</option>
+    <option value="pep8" selected="selected">PEP8</option>
+    <option value="pyflakes">PyFlakes</option>
+    <option value="collaborators">Collaborators</option>
+    <option value="forks">Forks</option>
+    <option value="issues">Open Issues</option>
+    <option value="watchers">Watchers</option>
+    <option value="readme">Readme</option>
+    <option value="setup_py">setup.py</option>
+    <option value="swearing">Swearing</option>
+    <option value="tabs_spaces">Tabs or Spaces</option>
+  </select>
+
+  &raquo;
+
+  <select>
+    <option value="">All</option>
+  </select>
+
+
+
+  <div class="graph-container">
+    <ul class="y axis">
+      <li>200</li>
+      <li>150</li>
+    </ul>
+
+    <div class="graph"></div>
+
+    <ul class="x axis">
+      <li>Jan 2011</li>
+      <li>Feb 2011</li>
+    </ul>
+  </div>
+
+{% endblock %}
