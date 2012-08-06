@@ -24,7 +24,7 @@ class GitRepo(object):
             shutil.rmtree(self.working_dir)
 
     def load_commits(self):
-        cmd = ['git', 'log', '--since=2011-07-01', '--no-notes', '--date=iso']
+        cmd = ['git', 'log', '--since=2011-12-01', '--no-notes', '--date=iso']
 
         raw = subprocess.check_output(cmd, cwd=self.working_dir)
         self.commits = self._parse_commit_log(raw)
