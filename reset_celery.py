@@ -14,7 +14,7 @@ print 'Flushed'
 collection = mongo.db().repositories
 
 
-for r in collection.find({'swearing': []}):
+for r in collection.find({'swearing': []}).sort('popularity.data.watchers', -1):
     user, repo = r['_id'].split('/')
     bootstrap_repo.delay(user, repo)
     print 'Scheduled %s,%s' % (user, repo)
