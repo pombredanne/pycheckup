@@ -47,25 +47,30 @@ def bootstrap_repo(user, repo_name):
 
     current_rev = None
 
-    for _ in range(31):
-        for c in repo.commits:
-            if c['date'] <= working_date:
-                # Only check it out if we need to
-                if c['rev'] != current_rev:
-                    logger.info('Checking out %s (%s)' % (c['rev'], c['date']))
-                    repo.checkout(c['rev'])
+    if len(repo.commits) == 0:
+        doc['empty'] = True
+        print 'No commits in time period, skipping...'
 
-                current_rev = c['rev']
+    else:
+        for _ in range(31):
+            for c in repo.commits:
+                if c['date'] <= working_date:
+                    # Only check it out if we need to
+                    if c['rev'] != current_rev:
+                        logger.info('Checking out %s (%s)' % (c['rev'], c['date']))
+                        repo.checkout(c['rev'])
 
-                # weekly probes
-                commits.run(repo, doc, working_date)
-                line_count.run(repo, doc, working_date)
-                pep8.run(repo, doc, working_date)
-                pyflakes.run(repo, doc, working_date)
-                swearing.run(repo, doc, working_date)
-                break
+                    current_rev = c['rev']
 
-        working_date -= one_week
+                    # weekly probes
+                    commits.run(repo, doc, working_date)
+                    line_count.run(repo, doc, working_date)
+                    pep8.run(repo, doc, working_date)
+                    pyflakes.run(repo, doc, working_date)
+                    swearing.run(repo, doc, working_date)
+                    break
+
+            working_date -= one_week
 
     doc['commits'].reverse()
     doc['swearing'].reverse()

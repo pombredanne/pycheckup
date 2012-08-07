@@ -2,6 +2,9 @@
 
 
 def empty(user, repo_name):
+    if '.' in repo_name:
+        repo_name = repo_name.replace('.', '_')
+
     return {
         '_id': '%s/%s' % (user, repo_name),
         'license': None,
