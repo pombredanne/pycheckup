@@ -2,7 +2,7 @@
 from django.core.management import execute_manager
 
 
-from pycheckup.config import settings
+from app.config import settings
 
 if __name__ == "__main__":
     execute_manager(settings)

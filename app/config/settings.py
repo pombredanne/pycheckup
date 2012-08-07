@@ -36,7 +36,10 @@ SECRET_KEY = 'u8#w=o7t(+93x+kqax5nvyv%6*lvzzxkz949fwcql2$ivh@32K'
 
 STATIC_BUNDLES = {
     'js': {
-        'app': ()
+        'app': (
+            'vendor/jquery-1.7.2',
+            'vendor/d3.v2.js',
+        )
     },
 
     'css': {
@@ -83,7 +86,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 
-ROOT_URLCONF = 'pycheckup.urls'
+ROOT_URLCONF = 'app.urls'
 
 
 INSTALLED_APPS = (
