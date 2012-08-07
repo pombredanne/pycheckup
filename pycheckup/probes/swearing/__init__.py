@@ -35,14 +35,12 @@ def run(repo, doc, on_date):
 
 
 def map_reduce():
-    mongo.db().repositories.map_reduce(
-        load_js('swear/count_map.js'),
-        load_js('swear/count_reduce.js'),
-        'summary-swearing'
+    mapreduce.run('swearing',
+        map='swearing/count_map.js',
+        reduce='swearing/count_reduce.js'
     )
 
-    mongo.db().repositories.map_reduce(
-        load_js('swear/profane_map.js'),
-        load_js('swear/profane_reduce.js'),
-        'summary-profanity-score'
+    mapreduce.run('profanity-score',
+        map='swearing/profane_map.js',
+        reduce='swearing/profane_reduce.js'
     )

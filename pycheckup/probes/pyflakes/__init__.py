@@ -49,8 +49,7 @@ def parse_results(results):
 
 
 def map_reduce():
-    mongo.db().repositories.map_reduce(
-        load_js('pyflakes/map.js'),
-        load_js('pyflakes/reduce.js'),
-        'summary-pyflakes'
+    mapreduce.run('pyflakes',
+        map='pyflakes/map.js',
+        reduce='pyflakes/reduce.js'
     )

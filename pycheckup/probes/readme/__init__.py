@@ -13,8 +13,7 @@ def run(repo, doc):
 
 
 def map_reduce():
-    mongo.db().repositories.map_reduce(
-        load_js('readme/map.js'),
-        load_js('_common/sum_reduce.js'),
-        'summary-readme'
+    mapreduce.run('readme',
+        map='readme/map.js',
+        reduce='_common/sum_reduce.js'
     )

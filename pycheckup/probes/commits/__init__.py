@@ -38,16 +38,14 @@ def get_commits(repo, start_date, end_date):
 
 
 def map_reduce():
-    mongo.db().repositories.map_reduce(
-        load_js('commits/count_map.js'),
-        load_js('_common/stats_reduce.js'),
-        'summary-commits-count',
-        finalize=load_js('_common/stats_finalize.js')
+    mapreduce.run('commits-count',
+        map='commits/count_map.js',
+        reduce='_common/stats_reduce.js',
+        finalize='_common/stats_finalize.js'
     )
 
-    mongo.db().repositories.map_reduce(
-        load_js('commits/lines_map.js'),
-        load_js('_common/stats_reduce.js'),
-        'summary-commits-lines',
-        finalize=load_js('_common/stats_finalize.js')
+    mapreduce.run('commits-lines',
+        map='commits/lines_map.js',
+        reduce='_common/stats_reduce.js',
+        finalize='_common/stats_finalize.js'
     )

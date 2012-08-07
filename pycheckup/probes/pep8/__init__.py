@@ -32,8 +32,7 @@ def parse_results(results):
 
 
 def map_reduce():
-    mongo.db().repositories.map_reduce(
-        load_js('pep8/map.js'),
-        load_js('pep8/reduce.js'),
-        'summary-pep8'
+    mapreduce.run('pep8',
+        map='pep8/map.js',
+        reduce='pep8/reduce.js'
     )

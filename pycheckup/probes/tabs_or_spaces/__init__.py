@@ -38,8 +38,7 @@ def get_repo_python_files(working_dir):
 
 
 def map_reduce():
-    mongo.db().repositories.map_reduce(
-        load_js('tabs_or_spaces/map.js'),
-        load_js('_common/sum_reduce.js'),
-        'summary-tabs-or-spaces'
+    mapreduce.run('tabs-or-spaces',
+        map='tabs_or_spaces/map.js',
+        reduce='_common/sum_reduce.js'
     )

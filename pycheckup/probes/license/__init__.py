@@ -34,8 +34,7 @@ def license_type(filename):
 
 
 def map_reduce():
-    mapreduce.run(
-        'license',
+    mapreduce.run('license',
         map='license/map.js',
         reduce='_common/sum_reduce.js'
     )

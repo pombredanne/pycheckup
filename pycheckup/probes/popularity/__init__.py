@@ -31,30 +31,26 @@ def collaborators(repo):
 
 
 def map_reduce():
-    mongo.db().repositories.map_reduce(
-        load_js('popularity/watchers_map.js'),
-        load_js('_common/stats_reduce.js'),
-        'summary-popularity-watchers',
-        finalize=load_js('_common/stats_finalize.js')
+    mapreduce.run('popularity-watchers',
+        map='popularity/watchers_map.js',
+        reduce='_common/stats_reduce.js',
+        finalize='_common/stats_finalize.js'
     )
 
-    mongo.db().repositories.map_reduce(
-        load_js('popularity/forks_map.js'),
-        load_js('_common/stats_reduce.js'),
-        'summary-popularity-forks',
-        finalize=load_js('_common/stats_finalize.js')
+    mapreduce.run('popularity-forks',
+        map='popularity/forks_map.js',
+        reduce='_common/stats_reduce.js',
+        finalize='_common/stats_finalize.js'
     )
 
-    mongo.db().repositories.map_reduce(
-        load_js('popularity/issues_map.js'),
-        load_js('_common/stats_reduce.js'),
-        'summary-popularity-issues',
-        finalize=load_js('_common/stats_finalize.js')
+    mapreduce.run('popularity-issues',
+        map='popularity/issues_map.js',
+        reduce='_common/stats_reduce.js',
+        finalize='_common/stats_finalize.js'
     )
 
-    mongo.db().repositories.map_reduce(
-        load_js('popularity/collaborators_map.js'),
-        load_js('_common/stats_reduce.js'),
-        'summary-popularity-collaborators',
-        finalize=load_js('_common/stats_finalize.js')
+    mapreduce.run('popularity-collaborators',
+        map='popularity/collaborators_map.js',
+        reduce='_common/stats_reduce.js',
+        finalize='_common/stats_finalize.js'
     )

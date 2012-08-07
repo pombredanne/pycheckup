@@ -7,8 +7,7 @@ def run(repo, doc):
 
 
 def map_reduce():
-    mongo.db().repositories.map_reduce(
-        load_js('setup_py/map.js'),
-        load_js('_common/sum_reduce.js'),
-        'summary-setup-py'
+    mapreduce.run('setup_py',
+        map='setup_py/map.js',
+        reduce='_common/sum_reduce.js',
     )
