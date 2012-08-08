@@ -37,8 +37,13 @@ SECRET_KEY = 'u8#w=o7t(+93x+kqax5nvyv%6*lvzzxkz949fwcql2$ivh@32K'
 STATIC_BUNDLES = {
     'js': {
         'app': (
-            'vendor/jquery-1.7.2',
+            'vendor/jquery-1.7.2.js',
+            'vendor/amplify.js',
             'vendor/d3.v2.js',
+            'vendor/underscore.js',
+
+            'ajax.js',
+            'test.js',
         )
     },
 

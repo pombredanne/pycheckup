@@ -3,6 +3,9 @@ body {
   font-size: 14px;
   font-weight: 400;
   color: #16343b;
+  /*background-image: url('../images/bg.png');*/
+  background-image: url('../images/bg.png'), url('../images/bg_tile.png');
+  background-repeat: repeat-x, repeat;
 }
 
 strong {
@@ -72,7 +75,7 @@ header #logo {
 
 
 #content {
-  padding: 15px;
+  padding: 20px;
 }
 
 
@@ -95,33 +98,74 @@ h3 {
 }
 
 
+#filter {
+  margin-bottom: 20px;
+}
+
+
+
+#frame {
+  border-width: 35px;
+  -webkit-border-image: url('../images/frame.png') 35 35 35 35 stretch;
+  box-shadow: 0 0 10px #333;
+}
 
 
 .graph-container {
-  margin-top: 10px;
+  height: 500px;
+  margin: 0 10px 4px 0;
 }
 
-.graph {
-  border: 1px solid #eee;
-  height: 600px;
-  margin-left: 60px;
+
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #999;
+  shape-rendering: crispEdges;
 }
 
-.axis li {
-  color: #bbb;
-  font-size: 11px;
+.axis text {
+  fill: #999;
+  font-size: 10px;
 }
 
-.y {
-  float: left;
-  width: 60px;
+
+
+path.featured-stroke, path.compare-stroke {
+  stroke-width: 1;
+  fill: none;
 }
 
-.x {
-  margin-left: 60px;
+path.featured-stroke {
+  stroke: #63aed4;
 }
 
-.x li {
-  display: inline-block;
-  margin-top: 6px;
+path.compare-stroke {
+  stroke: #d9d9d9;
+}
+
+path.featured-fill, path.compare-fill {
+  fill-opacity: 0.1;
+}
+
+path.featured-fill {
+  fill: #63aed4;
+}
+
+path.compare-fill {
+  fill: #ddd;
+}
+
+
+
+
+circle {
+  fill: #fff;
+  stroke: #63aed4;
+  stroke-width: 1;
+}
+
+circle:hover {
+  stroke-width: 2px;
+  cursor: pointer;
 }
