@@ -41,9 +41,16 @@ STATIC_BUNDLES = {
             'vendor/amplify.js',
             'vendor/d3.v2.js',
             'vendor/underscore.js',
+            'vendor/backbone.js',
 
             'ajax.js',
-            'test.js',
+            'graphs.js',
+            'names.js',
+        ),
+
+        'overview': (
+            'overview/views.js',
+            'overview/overview.js',
         )
     },
 

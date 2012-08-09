@@ -1,43 +1,169 @@
 {% extends 'base.html' %}
+{% load static_assets %}
 
 
 {% block content %}
 
-  <h2><strong>All Projects</strong></h2>
+  <h1>PyCheckup is an analysis of the top <strong>python</strong> projects on Github</h1>
 
-  <div id="filter">
 
-    <select>
-      <option value="commits" selected="selected">Commits</option>
-      <option value="license">License</option>
-      <option value="line_count">Line Count</option>
-      <option value="pep8">PEP8</option>
-      <option value="pyflakes">PyFlakes</option>
-      <option value="collaborators">Collaborators</option>
-      <option value="forks">Forks</option>
-      <option value="issues">Open Issues</option>
-      <option value="watchers">Watchers</option>
-      <option value="readme">Readme</option>
-      <option value="setup_py">setup.py</option>
-      <option value="swearing">Swearing</option>
-      <option value="tabs_spaces">Tabs or Spaces</option>
-    </select>
+  <div class="right-column">
 
-    &raquo;
+    <div class="right-side box">
+      <h3>Popularity</h3>
+      <ul>
+        <li>Bar with min, max, and avg arrow pointing with number</li>
+        <li>Watchers: {{ popularity.watchers.avg }}</li>
+        <li>Issues: {{ popularity.issues.avg }}</li>
+        <li>Forks: {{ popularity.forks.avg }}</li>
+        <li>Collaborators: {{ popularity.collaborators.avg }}</li>
+      </ul>
+    </div>
 
-    <select>
-      <option value="">Count</option>
-      <option value="">Lines Changed</option>
-    </select>
+
+    <div class="right-side box">
+      <h3>Features</h3>
+      <ul>
+        <li>Horizontal bar graph stacked yes / no</li>
+        <li>Readme: {{ features.readme.yes }} yes, {{ features.readme.no }} no</li>
+        <li>Setup.py: {{ features.setup_py.yes }} yes, {{ features.setup_py.no }} no</li>
+        <li>Tabs / Spaces: {{ features.tabs_spaces.tabs }} tabs, {{ features.tabs_spaces.spaces }} spaces</li>
+        <li>&nbsp;</li>
+        <li>License (pie):
+          {% for lic, num in features.license.items %}
+            {{ lic }}: {{ num }},
+          {% endfor %}
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="right-side box">
+      <h3>Most Profane Projects (<a href="">?</a>)</h3>
+      <ul>
+        {% for data in profane %}
+          <li>{{ data.score|floatformat:3|slice:'1:' }} &nbsp;
+            <a href="/projects/{{ data.repo }}">{{ data.repo }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
 
   </div>
 
 
 
-  <div id="frame">
+
+  <div id="overview-commits" class="left-side box">
+    <ul class="pills">
+      <li><a id="commits-count">Count</a></li>
+      <li><a id="commits-lines">Lines Changed</a></li>
+    </ul>
+
+    <h3>Commits</h3>
+
     <div class="graph-container"></div>
   </div>
 
 
+  <div id="overview-pyflakes" class="left-side box">
+    <ul class="pills">
+      <li><a id="pyflakes-total">Total</a></li>
+      <li><a id="pyflakes-violations">Violations</a></li>
+    </ul>
+
+    <h3>Pyflakes</h3>
+
+    <div class="graph-container"></div>
+
+
+    <table>
+      <thead>
+        <tr>
+          <th>Violation</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+
+      <tbody></tbody>
+    </table>
+
+
+    <script type="text/html" id="tmpl_pyflakes">
+      <tr>
+        <td><%= name %></td>
+        <td><%= count %></td>
+      </tr>
+    </script>
+
+  </div>
+
+
+  <div id="overview-pep8" class="left-side box">
+    <ul class="pills">
+      <li><a id="pep8-total">Total</a></li>
+      <li><a id="pep8-violations">Violations</a></li>
+    </ul>
+
+    <h3>PEP8</h3>
+
+    <div class="graph-container"></div>
+
+
+    <table>
+      <thead>
+        <tr>
+          <th>Violation</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+
+      <tbody></tbody>
+    </table>
+
+
+    <script type="text/html" id="tmpl_pep8">
+      <tr>
+        <td><%= name %></td>
+        <td><%= count %></td>
+      </tr>
+    </script>
+  </div>
+
+
+  <div id="overview-swearing" class="left-side box">
+    <ul class="pills">
+      <li><a id="swearing-total">Total</a></li>
+      <li><a id="swearing-words">Words</a></li>
+    </ul>
+
+    <h3>Swearing</h3>
+
+    <div class="graph-container"></div>
+
+
+    <table>
+      <thead>
+        <tr>
+          <th>Word</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+
+      <tbody></tbody>
+    </table>
+
+
+    <script type="text/html" id="tmpl_swearing">
+      <tr>
+        <td><%= word %></td>
+        <td><%= count %></td>
+      </tr>
+    </script>
+  </div>
+
 
 {% endblock %}
+
+
+{% block js %}{% static_js 'overview' 2 %}{% endblock %}
