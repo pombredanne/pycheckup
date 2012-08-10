@@ -38,6 +38,7 @@ STATIC_BUNDLES = {
     'js': {
         'app': (
             'vendor/jquery-1.7.2.js',
+            'vendor/jquery.sparkline.js',
             'vendor/amplify.js',
             'vendor/d3.v2.js',
             'vendor/underscore.js',

@@ -29,12 +29,18 @@
         <li>Setup.py: {{ features.setup_py.yes }} yes, {{ features.setup_py.no }} no</li>
         <li>Tabs / Spaces: {{ features.tabs_spaces.tabs }} tabs, {{ features.tabs_spaces.spaces }} spaces</li>
         <li>&nbsp;</li>
-        <li>License (pie):
-          {% for lic, num in features.license.items %}
-            {{ lic }}: {{ num }},
-          {% endfor %}
-        </li>
       </ul>
+
+      <h3>Licenses</h3>
+      <ul id="license-graph">
+        {% for license in features.license %}
+        <li>
+          <div class="license" style="width: {{ license|last|floatformat }}%">&nbsp;</div>
+          <div class="title">{{ license|first|title }} ({{ license|last|floatformat }}%)</div>
+        </li>
+        {% endfor %}
+      </ul>
+      <hr style="clear: left">
     </div>
 
 
@@ -92,7 +98,10 @@
     <script type="text/html" id="tmpl_pyflakes">
       <tr>
         <td><%= name %></td>
-        <td><%= count %></td>
+        <td class="count">
+          <span class="sparkline"><%= history %></span>
+          <span class="number"><%= count %></span>
+        </td>
       </tr>
     </script>
 
@@ -125,7 +134,10 @@
     <script type="text/html" id="tmpl_pep8">
       <tr>
         <td><%= name %></td>
-        <td><%= count %></td>
+        <td class="count">
+          <span class="sparkline"><%= history %></span>
+          <span class="number"><%= count %></span>
+        </td>
       </tr>
     </script>
   </div>
@@ -146,7 +158,7 @@
       <thead>
         <tr>
           <th>Word</th>
-          <th>Count</th>
+          <th class="count">Count</th>
         </tr>
       </thead>
 
@@ -157,7 +169,10 @@
     <script type="text/html" id="tmpl_swearing">
       <tr>
         <td><%= word %></td>
-        <td><%= count %></td>
+        <td class="count">
+          <span class="sparkline"><%= history %></span>
+          <span class="number"><%= count %></span>
+        </td>
       </tr>
     </script>
   </div>

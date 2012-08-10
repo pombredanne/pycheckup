@@ -5,14 +5,38 @@ var BaseView = Backbone.View.extend({
   },
 
   sortObject: function(data) {
-      result = [];
-      _.each(data, function(v, k) {
-        result.push({name: k, count: v});
-      });
+    result = [];
+    _.each(data, function(v, k) {
+      result.push({name: k, count: v});
+    });
 
-      result = _.sortBy(result, function(e) { return e.count; }).reverse();
-      return result;
-    },
+    result = _.sortBy(result, function(e) { return e.count; }).reverse();
+    return result;
+  },
+
+  getHistory: function(data, names) {
+    var result = {};
+    _.each(data, function(d) {
+      _.each(names, function(name) {
+        if (result[name] === undefined) {
+          result[name] = [];
+        }
+        result[name].push(d.value[name]);
+      });
+    });
+
+    return result;
+  },
+
+  sparkline_settings: {
+    lineColor: '#3d8ba5',
+    fillColor: '#ebf3f6',
+    minSpotColor: '#5da53d',
+    maxSpotColor: '#a53d3e',
+    spotColor: '#3d8ba5',
+    highlightLineColor: '#3d8ba5',
+    highlightSpotColor: '#3d8ba5'
+  }
 });
 
 
@@ -76,14 +100,20 @@ var Overview = {
 
       amplify.request('summary.pyflakes', _.bind(function(data) {
         var latest = data[data.length - 1].value;
+        var history = this.getHistory(data, _.keys(latest));
         var compiled = _.template(this.$('#tmpl_pyflakes').html());
         var table = this.$('table tbody').html('');
 
         _.each(this.sortObject(latest), function(v) {
           table.append(compiled({
-            name: DisplayNames.pyflakes[v.name], count: v.count
+            name: DisplayNames.pyflakes[v.name],
+            count: v.count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            history: history[v.name]
           }));
         });
+
+        console.log(this.sparkline_settings);
+        this.$('.sparkline').sparkline('html', this.sparkline_settings);
       }, this));
     },
 
@@ -121,14 +151,19 @@ var Overview = {
 
       amplify.request('summary.pep8', _.bind(function(data) {
         var latest = data[data.length - 1].value;
+        var history = this.getHistory(data, _.keys(latest));
         var compiled = _.template(this.$('#tmpl_pep8').html());
         var table = this.$('table tbody').html('');
 
         _.each(this.sortObject(latest), function(v) {
           table.append(compiled({
-            name: DisplayNames.pep8[v.name], count: v.count
+            name: DisplayNames.pep8[v.name],
+            count: v.count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            history: history[v.name]
           }));
         });
+
+        this.$('.sparkline').sparkline('html', this.sparkline_settings);
       }, this));
     },
 
@@ -166,14 +201,19 @@ var Overview = {
 
       amplify.request('summary.swearing', _.bind(function(data) {
         var latest = data[data.length - 1].value;
+        var history = this.getHistory(data, _.keys(latest));
         var compiled = _.template(this.$('#tmpl_swearing').html());
         var table = this.$('table tbody').html('');
 
         _.each(this.sortObject(latest), function(v) {
           table.append(compiled({
-            word: v.name, count: v.count
+            word: v.name,
+            count: v.count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            history: history[v.name]
           }));
         });
+
+        this.$('.sparkline').sparkline('html', this.sparkline_settings);
       }, this));
     },
 

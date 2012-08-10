@@ -205,6 +205,44 @@ table td {
   border-bottom: 1px solid #eee;
 }
 
+table td.count, table th.count {
+  text-align: right;
+}
+
+table th.count {
+  padding-right: 20px;
+}
+
+table td .number {
+  display: inline-block;
+  width: 60px;
+}
+
+
+
+
+#license-graph li {
+  display: block;
+  margin-bottom: 4px;
+  clear: left;
+}
+
+#license-graph .license {
+  background-color: #3d8ba5;
+  float: left;
+  margin-bottom: 4px;
+}
+
+#license-graph .title {
+  float: left;
+  color: #737373;
+  font-size: 11px;
+  padding-left: 6px;
+}
+
+hr {
+  border: 1px solid #fff;
+}
 
 
 

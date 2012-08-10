@@ -82,8 +82,19 @@ def issues():
 
 
 def licenses():
-    return grouped('license')
+    raw = grouped('license')
+    result = []
+    for license, count in raw.items():
+        result.append([license, count])
 
+    result = sorted(result, key=lambda license: license[1])
+    result.reverse()
+    total = sum([e[1] for e in result])
+
+    for e in result:
+        e.append((e[1] / total)*100)
+
+    return result
 
 def readme():
     return grouped('readme')
