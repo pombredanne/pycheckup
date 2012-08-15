@@ -11,6 +11,8 @@
 
     <div class="right-side box">
       <h3>Popularity</h3>
+      {{ popularity.watchers.min }} - {{ popularity.watchers.max }}
+      {{ popularity.watchers.avg }}
       <ul>
         <li>Bar with min, max, and avg arrow pointing with number</li>
         <li>Watchers: {{ popularity.watchers.avg }}</li>
@@ -30,7 +32,10 @@
         <li>Tabs / Spaces: {{ features.tabs_spaces.tabs }} tabs, {{ features.tabs_spaces.spaces }} spaces</li>
         <li>&nbsp;</li>
       </ul>
+    </div>
 
+
+    <div class="right-side box">
       <h3>Licenses</h3>
       <ul id="license-graph">
         {% for license in features.license %}
@@ -41,6 +46,12 @@
         {% endfor %}
       </ul>
       <hr style="clear: left">
+    </div>
+
+
+    <div class="right-side box">
+      <h3>Other Languages</h3>
+      Top other languages used with # of lines for each
     </div>
 
 

@@ -105,14 +105,15 @@ var Overview = {
         var table = this.$('table tbody').html('');
 
         _.each(this.sortObject(latest), function(v) {
-          table.append(compiled({
-            name: DisplayNames.pyflakes[v.name],
-            count: v.count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            history: history[v.name]
-          }));
+          if (DisplayNames.pyflakes[v.name] !== undefined) {
+            table.append(compiled({
+              name: DisplayNames.pyflakes[v.name],
+              count: v.count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+              history: history[v.name]
+            }));
+          }
         });
 
-        console.log(this.sparkline_settings);
         this.$('.sparkline').sparkline('html', this.sparkline_settings);
       }, this));
     },
@@ -156,11 +157,13 @@ var Overview = {
         var table = this.$('table tbody').html('');
 
         _.each(this.sortObject(latest), function(v) {
-          table.append(compiled({
-            name: DisplayNames.pep8[v.name],
-            count: v.count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            history: history[v.name]
-          }));
+          if (DisplayNames.pep8[v.name] !== undefined) {
+            table.append(compiled({
+              name: DisplayNames.pep8[v.name],
+              count: v.count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+              history: history[v.name]
+            }));
+          }
         });
 
         this.$('.sparkline').sparkline('html', this.sparkline_settings);
