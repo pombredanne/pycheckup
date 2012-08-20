@@ -20,12 +20,11 @@ collection = mongo.db().repositories
 @celery.task
 def schedule_updates():
     # Mark all as pending
-    # collection.update({}, {'$set': {'pending': True}}, multi=True)
+    collection.update({}, {'$set': {'pending': True}}, multi=True)
 
     # Schedule each to be updated
     for r in collection.find({'pending': True}, fields=('_id'), limit=500):
         user, repo_name = r['_id'].split('/')
-        working_date = datetime(year=2012, month=8, day=12)
         check_for_commits.delay(user, repo_name)
 
 
@@ -37,7 +36,7 @@ def check_for_commits(user, repo_name):
     response = requests.get(url)
     data = json.loads(response.text)
 
-    working_date = datetime(year=2012, month=8, day=12)
+    working_date = datetime(year=2012, month=8, day=19)
     one_week_before = working_date - timedelta(days=7)
 
     scheduled_task = False
