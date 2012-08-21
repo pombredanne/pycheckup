@@ -1,34 +1,12 @@
 var pyCheckupGraphs = function() {
 
-  function getMin(collection, fn) {
-    var e = _.min(collection, fn);
-    return fn(e);
-  }
-
-
-  function getMax(collection, fn) {
-    var e = _.max(collection, fn);
-    return fn(e);
-  }
-
-
   function getDataDomain(data) {
-    var x_mins = [], x_maxs = [], y_mins = [], y_maxs = [];
-
-    _.each(data, function(v, k) {
-      var xFn = function(e) { return new Date(e._id); }
-      var yFn = function(e) { return e.value[v.yAttr]; }
-
-      x_mins.push(getMin(v.data, xFn));
-      x_maxs.push(getMax(v.data, xFn));
-
-      y_mins.push(getMin(v.data, yFn));
-      y_maxs.push(getMax(v.data, yFn));
-    });
+    var xs = _.pluck(data, 'x');
+    var ys = _.pluck(data, 'y');
 
     return {
-      x: [_.min(x_mins), _.max(x_maxs)],
-      y: [0, _.max(y_maxs)]
+      x: [_.min(xs), _.max(xs)],
+      y: [0, _.max(ys)]
     }
   }
 
@@ -67,44 +45,39 @@ var pyCheckupGraphs = function() {
   }
 
 
-  function getLine(scale, yAttr) {
+  function getLine(scale) {
     return d3.svg.line()
                   .x(function(d, i) {
-                    return scale.x(new Date(d._id));
+                    return scale.x(d.x);
                   })
                   .y(function(d) {
-                    return scale.y(d.value[yAttr]);
+                    return scale.y(d.y);
                   });
   }
 
 
-  function drawFills(svg, data, line, domain) {
-    _.each(data, function(v, k) {
-      var this_data = v.data.slice();
+  function drawFill(svg, data, line, domain) {
+    var this_data = data.slice();
 
-      var value = {}
-      value[v.yAttr] = 0;
+    this_data.push({x: domain.x[1], y: 0});
+    this_data.push({x: domain.x[0], y: 0});
 
-      this_data.push({_id: domain.x[1], value: value});
-      this_data.push({_id: domain.x[0], value: value});
-
-      svg.append('svg:path')
-        .attr('d', line(this_data))
-        .attr('class', k + '-fill');
-    });
+    svg.append('svg:path')
+      .attr('d', line(this_data))
+      .attr('class', 'featured-fill');
   }
 
 
-  function drawCircles(svg, data, scale, yAttr) {
+  function drawCircles(svg, data, scale) {
     svg.selectAll('circle')
           .data(data)
           .enter()
           .append('svg:circle')
           .attr('cx', function(d) {
-            return scale.x(new Date(d._id));
+            return scale.x(d.x);
           })
           .attr('cy', function(d) {
-            return scale.y(d.value[yAttr]);
+            return scale.y(d.y);
           })
           .attr('r', function(d) {
             return 4;
@@ -112,14 +85,12 @@ var pyCheckupGraphs = function() {
   }
 
 
-  function drawLines(svg, data, line, scale) {
-    _.each(data, function(v, k) {
-      svg.append('svg:path')
-        .attr('d', line(v.data))
-        .attr('class', k + '-stroke');
+  function drawLine(svg, data, line, scale) {
+    svg.append('svg:path')
+      .attr('d', line(data))
+      .attr('class', 'featured-stroke');
 
-      drawCircles(svg, v.data, scale, v.yAttr);
-    });
+    drawCircles(svg, data, scale);
   }
 
 
@@ -134,11 +105,11 @@ var pyCheckupGraphs = function() {
     var scale = getScale(domain, w, h, padding, y_offset);
     var axis = getAxis(scale);
     var svg = d3.select(container).append('svg');
-    var line = getLine(scale, data.featured.yAttr);
+    var line = getLine(scale);
 
-    drawFills(svg, data, line, domain);
+    drawFill(svg, data, line, domain);
     drawAxis(svg, axis, h, padding, y_offset);
-    drawLines(svg, data, line, scale);
+    drawLine(svg, data, line, scale);
   }
 
 

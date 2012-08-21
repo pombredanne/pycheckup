@@ -50,10 +50,12 @@ var Overview = {
       'click #commits-lines': 'linesChanged'
     },
 
-    graphResult: function(data) {
-      var result = {featured: {data: data, yAttr: 'sum'}};
-      var graph = new pyCheckupGraphs();
-      graph.timeSeriesGraph(result, '#overview-commits .graph-container');
+    graphResult: function(raw) {
+      var data = _.map(raw, function(d) {
+        return {x: new Date(d._id), y: d.value.sum};
+      });
+
+      pyCheckupGraphs().timeSeriesGraph(data, '#overview-commits .graph-container');
     },
 
     count: function() {
@@ -80,10 +82,12 @@ var Overview = {
       'click #pyflakes-violations': 'violations'
     },
 
-    graphResult: function(data) {
-      var result = {featured: {data: data, yAttr: 'total'}};
-      var graph = new pyCheckupGraphs();
-      graph.timeSeriesGraph(result, '#overview-pyflakes .graph-container');
+    graphResult: function(raw) {
+      var data = _.map(raw, function(d) {
+        return {x: new Date(d._id), y: d.value.total};
+      });
+
+      pyCheckupGraphs().timeSeriesGraph(data, '#overview-pyflakes .graph-container');
     },
 
     total: function() {
@@ -132,10 +136,12 @@ var Overview = {
       'click #pep8-violations': 'violations'
     },
 
-    graphResult: function(data) {
-      var result = {featured: {data: data, yAttr: 'total'}};
-      var graph = new pyCheckupGraphs();
-      graph.timeSeriesGraph(result, '#overview-pep8 .graph-container');
+    graphResult: function(raw) {
+      var data = _.map(raw, function(d) {
+        return {x: new Date(d._id), y: d.value.total};
+      });
+
+      pyCheckupGraphs().timeSeriesGraph(data, '#overview-pep8 .graph-container');
     },
 
     total: function() {
@@ -184,10 +190,12 @@ var Overview = {
       'click #swearing-words': 'words'
     },
 
-    graphResult: function(data) {
-      var result = {featured: {data: data, yAttr: 'total'}};
-      var graph = new pyCheckupGraphs();
-      graph.timeSeriesGraph(result, '#overview-swearing .graph-container');
+    graphResult: function(raw) {
+      var data = _.map(raw, function(d) {
+        return {x: new Date(d._id), y: d.value.total};
+      });
+
+      pyCheckupGraphs().timeSeriesGraph(data, '#overview-swearing .graph-container');
     },
 
     total: function() {
