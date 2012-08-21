@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static_assets %}
+
+
+{% block content %}
+
+
+  <h1>{{ user }}/{{ repo }}</h1>
+
+  <a href="http://github.com/{{ user }}/{{ repo }}">View on Github</a>
+
+  License: {{ data.license }}
+  Readme: {{ data.readme }}
+
+
+{% endblock %}
