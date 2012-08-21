@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static_assets %}
+{% load humanize %}
 
 
 {% block content %}
@@ -10,28 +11,52 @@
   <div class="right-column">
 
     <div class="right-side box">
-      <h3>Popularity</h3>
-      {{ popularity.watchers.min }} - {{ popularity.watchers.max }}
-      {{ popularity.watchers.avg }}
-      <ul>
-        <li>Bar with min, max, and avg arrow pointing with number</li>
-        <li>Watchers: {{ popularity.watchers.avg }}</li>
-        <li>Issues: {{ popularity.issues.avg }}</li>
-        <li>Forks: {{ popularity.forks.avg }}</li>
-        <li>Collaborators: {{ popularity.collaborators.avg }}</li>
-      </ul>
+      <h3>Average Popularity</h3>
+      <table width="100%">
+        <tr>
+          <td width="45%"><a href="/explore/watchers">Watchers</a>:</td>
+          <td>{{ popularity.watchers.avg|floatformat:"1" }}</td>
+        </tr>
+        <tr>
+          <td><a href="/explore/issues">Issues</a>:</td>
+          <td>{{ popularity.issues.avg|floatformat:"1" }}</td>
+        </tr>
+        <tr>
+          <td><a href="/explore/forks">Forks</a>:</td>
+          <td>{{ popularity.forks.avg|floatformat:"1" }}</td>
+        </tr>
+        <tr>
+          <td><a href="/explore/collaborators">Collaborators</a>:</td>
+          <td>{{ popularity.collaborators.avg|floatformat:"1" }}</td>
+        </tr>
+      </table>
     </div>
 
 
     <div class="right-side box">
       <h3>Features</h3>
-      <ul>
-        <li>Horizontal bar graph stacked yes / no</li>
-        <li>Readme: {{ features.readme.yes }} yes, {{ features.readme.no }} no</li>
-        <li>Setup.py: {{ features.setup_py.yes }} yes, {{ features.setup_py.no }} no</li>
-        <li>Tabs / Spaces: {{ features.tabs_spaces.tabs }} tabs, {{ features.tabs_spaces.spaces }} spaces</li>
-        <li>&nbsp;</li>
-      </ul>
+      <table width="100%">
+        <tr>
+          <td width="45%">Readme:</td>
+          <td>{{ features.readme.percent|floatformat:"1" }}%</td>
+        </tr>
+        <tr>
+          <td>setup.py:</td>
+          <td>{{ features.setup_py.percent|floatformat:"1" }}%</td>
+        </tr>
+        <tr>
+          <td>Tabs:</td>
+          <td>
+            {{ features.tabs_spaces.percent_tabs|floatformat:"1" }}%
+          </td>
+        </tr>
+        <tr>
+          <td>Spaces:</td>
+          <td>
+            {{ features.tabs_spaces.percent_spaces|floatformat:"1" }}%
+          </td>
+        </tr>
+      </table>
     </div>
 
 
@@ -50,13 +75,20 @@
 
 
     <div class="right-side box">
-      <h3>Other Languages</h3>
-      Top other languages used with # of lines for each
+      <h3>Other Languages (Line count)</h3>
+      <table width="100%">
+        {% for lang in languages %}
+          <tr>
+            <td width="45%">.{{ lang|first }}</td>
+            <td>{{ lang|last|floatformat|intcomma }}</td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
 
 
     <div class="right-side box">
-      <h3>Most Profane Projects (<a href="">?</a>)</h3>
+      <h3>Most Profane Projects</h3>
       <ul>
         {% for data in profane %}
           <li>{{ data.score|floatformat:3|slice:'1:' }} &nbsp;
@@ -64,6 +96,9 @@
           </li>
         {% endfor %}
       </ul>
+
+      <div class="note">Profanity is scored as a ratio of swear words to lines
+      of python.</div>
     </div>
 
   </div>

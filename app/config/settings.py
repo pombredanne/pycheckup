@@ -105,6 +105,7 @@ ROOT_URLCONF = 'app.urls'
 INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'static_cdn',
 )
 

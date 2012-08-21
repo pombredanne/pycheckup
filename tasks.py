@@ -151,6 +151,7 @@ def cleanup_map_reduce():
     """
     Sometimes the map reduce jobs spit out NaNs, which cause invalid JSON.
     """
+    remove_undefined('line-count')
     remove_undefined('pyflakes')
     remove_undefined('pep8')
     remove_undefined('swearing')

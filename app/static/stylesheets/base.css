@@ -127,7 +127,7 @@ p {
   color: #333;
 }
 
-li {
+li, td {
   font-size: 13px;
   line-height: 20px;
   color: #737373;
@@ -183,11 +183,11 @@ li {
 
 
 
-table {
+.left-side table {
   width: 100%;
 }
 
-table th, table td {
+.left-side table th, .left-side table td {
   padding: 5px;
   text-align: left;
   font-size: 13px;
@@ -195,28 +195,30 @@ table th, table td {
   color: #737373;
 }
 
-table th {
+.left-side table th {
   font-weight: 700;
   border-bottom: 1px solid #999;
   color: #555;
 }
 
-table td {
+.left-side table td {
   border-bottom: 1px solid #eee;
 }
 
-table td.count, table th.count {
+.left-side table td.count, .left-side table th.count {
   text-align: right;
 }
 
-table th.count {
+.left-side table th.count {
   padding-right: 20px;
 }
 
-table td .number {
+.left-side table td .number {
   display: inline-block;
   width: 60px;
 }
+
+
 
 
 
@@ -242,6 +244,13 @@ table td .number {
 
 hr {
   border: 1px solid #fff;
+}
+
+.note {
+  padding-top: 10px;
+  font-size: 11px;
+  line-height: 14px;
+  color: #bbb;
 }
 
 

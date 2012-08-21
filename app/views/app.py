@@ -1,6 +1,5 @@
-from django.http import HttpResponse
 from django.shortcuts import render
-from pycheckup.lib import summary
+from pycheckup.lib import project, summary
 
 
 def index(request):
@@ -17,6 +16,7 @@ def index(request):
             'setup_py': summary.setup_py(),
             'tabs_spaces': summary.tabs_spaces(),
         },
+        'languages': summary.other_languages(),
         'profane': summary.most_profane(10)
     }
 
@@ -28,7 +28,11 @@ def projects(request):
 
 
 def repo(request, user, repo):
-    return HttpResponse('%s / %s' % (user, repo))
+    return render(request, 'project.html', {
+        'user': user,
+        'repo': repo,
+        'data': project.stats(user, repo)
+    })
 
 
 def about(request):

@@ -14,7 +14,7 @@ def pluck(d, keys):
 
 
 def latest(name):
-    return db['summary-%s' % name].find_one(sort=[('_id', -1)])
+    return db['summary-%s' % name].find_one(sort=[('_id', -1)])['value']
 
 
 def stats(d):
@@ -29,6 +29,11 @@ def grouped(name):
     return result
 
 
+def percent_yes(data):
+    data['percent'] = (data['yes'] / (data['yes'] + data['no'])) * 100
+    return data
+
+
 def over_time(name, field):
     result = []
 
@@ -39,19 +44,19 @@ def over_time(name, field):
 
 
 def watchers():
-    return stats(latest('popularity-watchers')['value'])
+    return stats(latest('popularity-watchers'))
 
 
 def collaborators():
-    return stats(latest('popularity-collaborators')['value'])
+    return stats(latest('popularity-collaborators'))
 
 
 def forks():
-    return stats(latest('popularity-forks')['value'])
+    return stats(latest('popularity-forks'))
 
 
 def issues():
-    return stats(latest('popularity-issues')['value'])
+    return stats(latest('popularity-issues'))
 
 
 def licenses():
@@ -60,25 +65,47 @@ def licenses():
     for license, count in raw.items():
         result.append([license, count])
 
+    # Order licenses by count
     result = sorted(result, key=lambda license: license[1])
     result.reverse()
-    total = sum([e[1] for e in result])
 
+    # Add in % of total
+    total = sum([e[1] for e in result])
     for e in result:
-        e.append((e[1] / total)*100)
+        e.append((e[1] / total) * 100)
 
     return result
 
 def readme():
-    return grouped('readme')
+    return percent_yes(grouped('readme'))
 
 
 def setup_py():
-    return grouped('setup_py')
+    return percent_yes(grouped('setup_py'))
 
 
 def tabs_spaces():
-    return grouped('tabs-or-spaces')
+    data = grouped('tabs-or-spaces')
+    total = data['tabs'] + data['spaces']
+    data['percent_tabs'] = (data['tabs'] / total) * 100
+    data['percent_spaces'] = (data['spaces'] / total) * 100
+    return data
+
+
+def other_languages():
+    data = latest('line-count')
+    del data['py']
+    del data['total']
+
+    result = []
+    for license, count in data.items():
+        result.append([license, count])
+
+    # Order licenses by count
+    result = sorted(result, key=lambda lang: lang[1])
+    result.reverse()
+
+    return result
 
 
 def most_profane(num):
