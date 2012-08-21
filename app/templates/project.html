@@ -7,10 +7,119 @@
 
   <h1>{{ user }}/{{ repo }}</h1>
 
-  <a href="http://github.com/{{ user }}/{{ repo }}">View on Github</a>
 
-  License: {{ data.license }}
-  Readme: {{ data.readme }}
+  <p><a href="http://github.com/{{ user }}/{{ repo }}">View on Github</a></p>
+
+
+  <div class="right-column">
+
+    <div class="right-side box">
+      <h3>Project Statistics</h3>
+      <table width="100%">
+        {% for p in data.popularity %}
+          {% if forloop.first %}
+            <tr>
+              <td width="45%">Watchers:</td>
+              <td>{{ p.data.watchers }}</td>
+            </tr>
+            <tr>
+              <td>Issues:</td>
+              <td>{{ p.data.open_issues }}</td>
+            </tr>
+            <tr>
+              <td>Forks:</td>
+              <td>{{ p.data.forks }}</td>
+            </tr>
+            <tr>
+              <td>Collaborators:</td>
+              <td>{{ p.data.num_collaborators }}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+
+      </table>
+    </div>
+
+
+    <div class="right-side box">
+      <h3>Features</h3>
+      <table width="100%">
+        <tr>
+          <td width="45%">Readme:</td>
+          <td>{{ data.readme }}</td>
+        </tr>
+        <tr>
+          <td>setup.py:</td>
+          <td>{{ data.setup_py }}</td>
+        </tr>
+        <tr>
+          <td>Tabs / Spaces:</td>
+          <td>{{ data.tabs_or_spaces|title }}</td>
+        </tr>
+        <tr>
+          <td>License:</td>
+          <td>{{ data.license|title }}</td>
+        </tr>
+      </table>
+    </div>
+
+
+    <div class="right-side box">
+      <h3>Contributors</h3>
+      <ul>
+        {% for person in data.collaborators %}
+          <li>{{ person }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+
+
+
+  <div id="project-line-count" class="left-side box">
+    <h3>Line Count</h3>
+
+    <div class="graph-container"></div>
+  </div>
+
+  <div id="overview-commits" class="left-side box">
+    <h3>Commits</h3>
+
+    <div class="graph-container"></div>
+  </div>
+
+  <div id="overview-commits" class="left-side box">
+    <h3>Pyflakes</h3>
+
+    <div class="graph-container"></div>
+  </div>
+
+  <div id="overview-commits" class="left-side box">
+    <h3>PEP8</h3>
+
+    <div class="graph-container"></div>
+  </div>
+
+  <div id="overview-commits" class="left-side box">
+    <h3>Swearing</h3>
+
+    <div class="graph-container"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    var PyCheckupData = {
+      commits: {{ data.commits|safe }},
+      line_count: {{ data.line_count|safe }},
+      pep8: {{ data.pep8|safe }},
+      pyflakes: {{ data.pyflakes|safe }},
+      swearing: {{ data.swearing|safe }}
+    }
+  </script>
 
 
 {% endblock %}
+
+
+{% block js %}{% static_js 'project' 2 %}{% endblock %}

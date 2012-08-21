@@ -14,9 +14,9 @@ var pyCheckupGraphs = function() {
 
   function getDataDomain(data) {
     var x_mins = [], x_maxs = [], y_mins = [], y_maxs = [];
-    var xFn = function(e) { return new Date(e._id); }
 
     _.each(data, function(v, k) {
+      var xFn = function(e) { return new Date(e._id); }
       var yFn = function(e) { return e.value[v.yAttr]; }
 
       x_mins.push(getMin(v.data, xFn));

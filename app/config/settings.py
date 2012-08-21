@@ -52,7 +52,12 @@ STATIC_BUNDLES = {
         'overview': (
             'overview/views.js',
             'overview/overview.js',
-        )
+        ),
+
+        'project': (
+            'project/views.js',
+            'project/project.js',
+        ),
     },
 
     'css': {
