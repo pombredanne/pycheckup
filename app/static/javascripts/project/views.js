@@ -5,7 +5,7 @@ var Project = {
 
     render: function() {
       var data = _.map(PyCheckupData.line_count, function(d) {
-        return {x: new Date(d.date), y: d.data.py};
+        return {x: new Date(d.date), y: d.data.total};
       });
 
       pyCheckupGraphs().timeSeriesGraph(data, '#project-line-count .graph-container');
