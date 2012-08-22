@@ -253,6 +253,24 @@ hr {
   color: #bbb;
 }
 
+#github-link {
+  margin: -30px auto 30px auto;
+  background-color: #fff;
+  width: 150px;
+  text-align: center;
+  font-size: 13px;
+  padding: 6px 0;
+  border: 1px solid #ddd;
+}
+
+#github-link a {
+  text-decoration: none;
+}
+
+#github-link a:hover {
+  text-decoration: underline;
+}
+
 
 
 
