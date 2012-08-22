@@ -6,7 +6,8 @@ from pycheckup.document import weekly_data
 
 CODE_EXTENSIONS = (
     'py', 'html', 'css', 'scss', 'js', 'coffee', 'xml', 'yaml', 'yml', 'csv',
-    'sql', 'c', 'h', 'cpp', 'm', 'sh', 'php', 'rb', 'pl', 'java', 'clj'
+    'sql', 'c', 'h', 'cpp', 'm', 'sh', 'php', 'rb', 'pl', 'java', 'clj',
+    'txt', 'md', 'markdown', 'rst'
 )
 
 
