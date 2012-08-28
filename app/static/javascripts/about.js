@@ -7,7 +7,7 @@ $(function($) {
     }
 
     $.post('/contact', data, function(d, s) {
-      alert('Thanks. I will be in touch with your shortly.');
+      alert('Thanks. I will be in touch with you shortly.');
 
       $('#email').val('');
       $('#website').val('');
