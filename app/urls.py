@@ -28,6 +28,6 @@ urlpatterns += patterns('app.views.app',
     (r'^contact$', 'contact'),
     (r'^explore$', 'explore'),
     (r'^projects$', 'projects'),
-    (r'^projects/(?P<user>\w+)/(?P<repo>\w+)$', 'repo'),
+    (r'^projects/(?P<user>[-\w\d]+)/(?P<repo>[-\w\d]+)$', 'repo'),
     (r'^$', 'index'),
 )
