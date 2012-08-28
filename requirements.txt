@@ -7,4 +7,6 @@ redis
 Celery
 pymongo
 django
+boto
+heroku
 -e git+https://github.com/mjp/django-static-cdn.git#egg=static_cdn
