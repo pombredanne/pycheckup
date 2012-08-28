@@ -19,6 +19,7 @@ urlpatterns = patterns('app.views.api',
     (r'^api/tabs-or-spaces$', 'tabs_spaces'),
     (r'^api/distribution/(?P<name>\w+)$', 'distribution'),
     (r'^api/correlate/(?P<x>\w+)/(?P<y>\w+)$', 'correlate'),
+    (r'^api/autocomplete$', 'autocomplete'),
 )
 
 

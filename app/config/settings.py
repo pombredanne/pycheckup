@@ -54,6 +54,11 @@ STATIC_BUNDLES = {
             'overview/overview.js',
         ),
 
+        'projects': (
+            'vendor/jquery.autocomplete.js',
+            'projects.js',
+        ),
+
         'project': (
             'project/views.js',
             'project/project.js',
@@ -71,7 +76,8 @@ STATIC_BUNDLES = {
         'app': (
             'reset.css',
             'base.css',
-            'forms.css'
+            'forms.css',
+            'jquery.autocomplete.css'
         ),
     }
 }

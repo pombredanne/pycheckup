@@ -21,6 +21,15 @@ def json_response(d):
     )
 
 
+def autocomplete(request):
+    result = []
+    query = {'project': {'$regex': '^%s' % request.GET['q']}}
+    for d in db.repositories.find(query, fields=('_id'), limit=10):
+        result.append(d['_id'])
+
+    return json_response(result)
+
+
 def mongo_time_series(name):
     return json_response([d for d in db['summary-%s' % name].find()])
 

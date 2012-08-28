@@ -272,6 +272,20 @@ hr {
 
 
 
+#projects {
+  text-align: center;
+}
+
+#projects input {
+  font-size: 22px;
+  padding: 8px 12px;
+  width: 60%;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+
+
 
 #explore h1 {
   margin-bottom: 20px;
