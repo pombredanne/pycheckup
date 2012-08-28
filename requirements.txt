@@ -9,4 +9,5 @@ pymongo
 django
 boto
 heroku
+gunicorn
 -e git+https://github.com/mjp/django-static-cdn.git#egg=static_cdn
