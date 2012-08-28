@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static_assets %}
+
+
+{% block content %}
+
+
+  <div id="about">
+
+    <h1>About</h1>
+
+    <p>Inspired by <a href="https://github.com/holman">@holman</a> and his talk
+    <a href="http://zachholman.com/talk/aggressively-probing-ruby-projects">
+    Aggressively Probing Ruby Projects</a>, I decided to do a broad analysis of
+    the most popular python repositories on Github. A majority of the analysis
+    was inspired by <a href="https://github.com/holman/hopper">hopper</a> and
+    adopted for python.</p>
+
+    <p>I wrote more about the project and its findings in a
+    <a href="">blog post</a>.</p>
+
+
+    <h3>Colophon</h3>
+
+    <p>The source for this app is available on
+    <a href="https://github.com/mjp/pycheckup">Github</a>.</p>
+
+    <p>The app is written in <a href="http://python.org/">python</a>, data is
+    stored in <a href="http://www.mongodb.org/">MongoDB</a> and uses the
+    <a href="http://www.mongodb.org/display/DOCS/MapReduce">map reduce</a>
+    functionality to compute summary statistics. The frontend is made using
+    <a href="https://www.djangoproject.com/">Django</a>. The graphs are made in
+    <a href="http://d3js.org/">d3</a>. It is hosted on
+    <a href="http://www.heroku.com/">Heroku</a>.</p>
+
+
+    <h3>Hire Me</h3>
+
+    <p>If you are looking for a developer and want to get in touch, use the
+    form below:</p>
+
+    <form method="POST">
+      <label for="email">Your Email</label>
+      <input type="text" id="email" size="45">
+
+      <label for="website">Your Company / Website</label>
+      <input type="text" id="website" size="45">
+
+      <label for="description">Describe Your Project</label>
+      <textarea id="description" rows="10" cols="45"></textarea>
+
+      <input type="submit" name="Contact" id="submit-contact" value="Submit">
+    </form>
+
+  </div>
+
+
+{% endblock %}
+
+
+{% block js %}{% static_js 'about' 2 %}{% endblock %}

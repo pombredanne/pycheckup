@@ -24,6 +24,7 @@ urlpatterns = patterns('app.views.api',
 
 urlpatterns += patterns('app.views.app',
     (r'^about$', 'about'),
+    (r'^contact$', 'contact'),
     (r'^explore$', 'explore'),
     (r'^projects$', 'projects'),
     (r'^projects/(?P<user>\w+)/(?P<repo>\w+)$', 'repo'),

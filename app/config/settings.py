@@ -62,7 +62,9 @@ STATIC_BUNDLES = {
         'explore': (
             'explore/views.js',
             'explore/explore.js',
-        )
+        ),
+
+        'about': ('about.js',)
     },
 
     'css': {
@@ -102,6 +104,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.request',
 )
+
+
+POSTMARK_API_KEY    = os.environ.get('POSTMARK_API_KEY')
+POSTMARK_SENDER     = os.environ.get('POSTMARK_SENDER')
+POSTMARK_TEST_MODE  = False
 
 
 MIDDLEWARE_CLASSES = (
