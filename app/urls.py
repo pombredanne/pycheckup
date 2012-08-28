@@ -17,11 +17,14 @@ urlpatterns = patterns('app.views.api',
     (r'^api/setup.py$', 'setup_py'),
     (r'^api/swearing$', 'swearing'),
     (r'^api/tabs-or-spaces$', 'tabs_spaces'),
+    (r'^api/distribution/(?P<name>\w+)$', 'distribution'),
+    (r'^api/correlate/(?P<x>\w+)/(?P<y>\w+)$', 'correlate'),
 )
 
 
 urlpatterns += patterns('app.views.app',
     (r'^about$', 'about'),
+    (r'^explore$', 'explore'),
     (r'^projects$', 'projects'),
     (r'^projects/(?P<user>\w+)/(?P<repo>\w+)$', 'repo'),
     (r'^$', 'index'),

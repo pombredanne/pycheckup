@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static_assets %}
+
+
+{% block content %}
+
+
+  <div id="explore">
+
+    <h1>Explore</h1>
+
+
+    <select id="pick-analysis">
+      <optgroup label="Distributions">
+        <option value="dist-watchers">Watchers</option>
+        <option value="dist-issues">Issues</option>
+        <option value="dist-forks">Forks</option>
+        <option value="dist-collaborators"># Collaborators</option>
+      </optgroup>
+
+      <optgroup label="Correlations">
+        <option value="line-count:issues">Line count : Open Issues</option>
+        <option value="line-count:forks">Line count : Forks</option>
+        <option value="line-count:watchers">Line count : Watchers</option>
+        <option value="line-count:collaborators">Line count : Collaborators</option>
+        <option value="line-count:swearing">Line count : Swearing</option>
+        <option value="line-count:pep8">Line count : PEP8</option>
+        <option value="line-count:pyflakes">Line count : Pyflakes</option>
+        <option value="issues:forks">Open Issues : Forks</option>
+        <option value="issues:watchers">Open Issues : Watchers</option>
+        <option value="issues:collaborators">Open Issues : Collaborators</option>
+        <option value="issues:swearing">Open Issues : Swearing</option>
+        <option value="issues:pep8">Open Issues : PEP8</option>
+        <option value="issues:pyflakes">Open Issues : Pyflakes</option>
+        <option value="forks:watchers">Forks : Watchers</option>
+        <option value="forks:collaborators">Forks : Collaborators</option>
+        <option value="forks:swearing">Forks : Swearing</option>
+        <option value="forks:pep8">Forks : PEP8</option>
+        <option value="forks:pyflakes">Forks : Pyflakes</option>
+        <option value="watchers:collaborators">Watchers : Collaborators</option>
+        <option value="watchers:swearing">Watchers : Swearing</option>
+        <option value="watchers:pep8">Watchers : PEP8</option>
+        <option value="watchers:pyflakes">Watchers : Pyflakes</option>
+        <option value="collaborators:swearing">Collaborators : Swearing</option>
+        <option value="collaborators:pep8">Collaborators : PEP8</option>
+        <option value="collaborators:pyflakes">Collaborators : Pyflakes</option>
+        <option value="swearing:pep8">Swearing : PEP8</option>
+        <option value="swearing:pyflakes">Swearing : Pyflakes</option>
+        <option value="pep8:pyflakes">PEP8 : Pyflakes</option>
+      </optgroup>
+    </select>
+
+
+    <div id="explore-content"></div>
+
+
+  </div>
+
+
+{% endblock %}
+
+
+{% block js %}{% static_js 'explore' 2 %}{% endblock %}

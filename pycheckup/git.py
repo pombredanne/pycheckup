@@ -16,6 +16,7 @@ class GitRepo(object):
 
     def clone(self):
         self._check_env()
+        print self.github_url
         cmd = ['git', 'clone', self.github_url, self.working_dir]
         subprocess.check_call(cmd)
 

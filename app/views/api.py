@@ -1,6 +1,7 @@
 import json
 from django.http import HttpResponse
 from pycheckup import mongo
+from pycheckup.lib import explore
 
 
 db = mongo.db()
@@ -87,3 +88,11 @@ def swearing(request):
 
 def tabs_spaces(request):
     return mongo_categories('tabs-or-spaces')
+
+
+def distribution(request, name):
+    return json_response(explore.distribution(name))
+
+
+def correlate(request, x, y):
+    return json_response(explore.correlate(x, y))

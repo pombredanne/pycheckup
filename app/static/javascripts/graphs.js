@@ -10,6 +10,7 @@ var pyCheckupGraphs = function() {
     }
   }
 
+
   function dateFormat(i) {
     var format = d3.time.format('%b. %d');
     return format(new Date(i))
@@ -25,6 +26,14 @@ var pyCheckupGraphs = function() {
 
 
   function getAxis(scale) {
+    return {
+      x: d3.svg.axis().scale(scale.x).orient('bottom'),
+      y: d3.svg.axis().scale(scale.y).orient('left').ticks(5)
+    }
+  }
+
+
+  function getTimeSeriesAxis(scale) {
     return {
       x: d3.svg.axis().scale(scale.x).orient('bottom').tickFormat(dateFormat),
       y: d3.svg.axis().scale(scale.y).orient('left').ticks(5)
@@ -103,7 +112,7 @@ var pyCheckupGraphs = function() {
 
     var domain = getDataDomain(data);
     var scale = getScale(domain, w, h, padding, y_offset);
-    var axis = getAxis(scale);
+    var axis = getTimeSeriesAxis(scale);
     var svg = d3.select(container).append('svg');
     var line = getLine(scale);
 
@@ -113,7 +122,25 @@ var pyCheckupGraphs = function() {
   }
 
 
+  function scatterplot(data, container) {
+    $(container).html('');
+    var w = $(container).width();
+    var h = $(container).height();
+    var y_offset = 60;
+    var padding = 30;
+
+    var domain = getDataDomain(data);
+    var scale = getScale(domain, w, h, padding, y_offset);
+    var axis = getAxis(scale);
+    var svg = d3.select(container).append('svg');
+
+    drawAxis(svg, axis, h, padding, y_offset);
+    drawCircles(svg, data, scale);
+  }
+
+
   return {
-    timeSeriesGraph: timeSeriesGraph
+    timeSeriesGraph: timeSeriesGraph,
+    scatterplot: scatterplot
   }
 }

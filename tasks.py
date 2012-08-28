@@ -36,7 +36,7 @@ def check_for_commits(user, repo_name):
     response = requests.get(url)
     data = json.loads(response.text)
 
-    working_date = datetime(year=2012, month=8, day=19)
+    working_date = datetime(year=2012, month=8, day=26)
     one_week_before = working_date - timedelta(days=7)
 
     scheduled_task = False

@@ -5,20 +5,58 @@ from pycheckup import mongo
 collection = mongo.db().repositories
 
 
-def correlate(x, y):
-    functions = {
-        'line_count': line_count,
-        'open_issues': open_issues,
-        'forks': forks,
-        'watchers': watchers,
-        'num_collaborators': num_collaborators,
-        'swearing': swearing,
-        'pep8': pep8,
-        'pyflakes': pyflakes
+TYPES = {
+    # document field, data attribute, max
+    'line_count':           ('line_count', 'total', 6000000),
+    'open_issues':          ('popularity', 'open_issues', 400),
+    'forks':                ('popularity', 'forks', 800),
+    'watchers':             ('popularity', 'watchers', 4500),
+    'num_collaborators':    ('popularity', 'num_collaborators', 300),
+    'swearing':             ('swearing', 'total', 6000),
+    'pep8':                 ('pep8', 'total', 600000),
+    'pyflakes':             ('pyflakes', 'total', 15000),
+}
+
+
+def distribution(name):
+    if name not in TYPES:
+        raise ValueError
+
+    data = get_latest(TYPES[name][0], TYPES[name][1])
+    data.sort()
+
+    keys = get_key_range(TYPES[name][2])
+
+    result = []
+    for r in keys:
+        def in_range(x): return r[0] <= x <= r[1]
+        result.append((r[0], r[1], len(filter(in_range, data))))
+
+    return {
+        'data': result,
+        'min': min(result, key=lambda x: x[2])[2],
+        'max': max(result, key=lambda x: x[2])[2]
     }
 
-    x_values = functions[x]()
-    y_values = functions[y]()
+
+def get_key_range(max, steps=15):
+    nums = range(0, max + 1, max / steps)
+
+    pairs = []
+    prev = 0
+    for n in nums[1:]:
+        pairs.append((prev, n - 1))
+        prev = n
+
+    return pairs
+
+
+def correlate(x, y):
+    if x not in TYPES or y not in TYPES:
+        raise ValueError
+
+    x_values = get_latest(TYPES[x][0], TYPES[x][1])
+    y_values = get_latest(TYPES[y][0], TYPES[y][1])
 
     return {
         'x': x_values,
@@ -48,38 +86,6 @@ def pearson_r(x, y):
         ydiff2 += ydiff * ydiff
 
     return diffprod / math.sqrt(xdiff2 * ydiff2)
-
-
-def line_count():
-    return get_latest('line_count', 'total')
-
-
-def open_issues():
-    return get_latest('popularity', 'open_issues')
-
-
-def forks():
-    return get_latest('popularity', 'forks')
-
-
-def watchers():
-    return get_latest('popularity', 'watchers')
-
-
-def num_collaborators():
-    return get_latest('popularity', 'num_collaborators')
-
-
-def swearing():
-    return get_latest('swearing', 'total')
-
-
-def pep8():
-    return get_latest('pep8', 'total')
-
-
-def pyflakes():
-    return get_latest('pyflakes', 'total')
 
 
 def get_latest(field, attr):

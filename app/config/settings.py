@@ -58,6 +58,11 @@ STATIC_BUNDLES = {
             'project/views.js',
             'project/project.js',
         ),
+
+        'explore': (
+            'explore/views.js',
+            'explore/explore.js',
+        )
     },
 
     'css': {

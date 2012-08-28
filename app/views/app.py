@@ -23,6 +23,10 @@ def index(request):
     return render(request, 'index.html', data)
 
 
+def explore(request):
+    return render(request, 'explore.html')
+
+
 def projects(request):
     pass
 

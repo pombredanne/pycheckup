@@ -3,9 +3,7 @@ body {
   font-size: 14px;
   font-weight: 400;
   color: #16343b;
-  /*background-image: url('../images/bg.png');*/
-  background-image: url('../images/bg.png'), url('../images/bg_tile.png');
-  background-repeat: repeat-x, repeat;
+  background-color: #fafafa;
 }
 
 strong {
@@ -271,6 +269,82 @@ hr {
   text-decoration: underline;
 }
 
+
+
+
+#explore h1 {
+  margin-bottom: 20px;
+}
+
+#explore-content h3 {
+  text-align: center;
+}
+
+
+.bar-graph {
+  width: 90%;
+  margin: 40px auto 0 auto;
+  height: 400px;
+}
+
+.bar-graph td {
+  padding: 0 10px;
+  width: 6.6666666667%;
+  border-bottom: 2px solid #444;
+  vertical-align: bottom;
+}
+
+.bar-graph .label {
+  font-size: 9px;
+  text-align: center;
+  color: #666;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.bar-graph .bar {
+  display: block;
+  background-color: #3d8ba5;
+  box-shadow: 0 0 3px #333;
+}
+
+.bar-axis td {
+  height: 10px;
+  font-size: 10px;
+  border-bottom: none;
+  text-align: center;
+  color: #ccc;
+}
+
+
+#scatterplot {
+  height: 500px;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.scatter-axis {
+  font-size: 9px;
+  color: #444;
+}
+
+#scatter-y-axis {
+  float: left;
+  margin-left: -25px;
+  margin-top: 200px;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+#scatter-x-axis {
+  padding-top: 20px;
+  text-align: center;
+}
+
+#r-value {
+  text-align: center;
+  font-size: 12px;
+}
 
 
 
