@@ -58,4 +58,7 @@
 {% endblock %}
 
 
-{% block js %}{% static_js 'about' 2 %}{% endblock %}
+{% block js %}
+  {% static_js 'about' 2 %}
+  <script>$(function($) { $('#menu-about').addClass('active'); });</script>
+{% endblock %}

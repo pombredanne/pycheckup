@@ -60,4 +60,7 @@
 {% endblock %}
 
 
-{% block js %}{% static_js 'explore' 2 %}{% endblock %}
+{% block js %}
+  {% static_js 'explore' 2 %}
+  <script>$(function($) { $('#menu-explore').addClass('active'); });</script>
+{% endblock %}

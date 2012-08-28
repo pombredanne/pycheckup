@@ -19,4 +19,7 @@
 {% endblock %}
 
 
-{% block js %}{% static_js 'projects' 2 %}{% endblock %}
+{% block js %}
+  {% static_js 'projects' 2 %}
+  <script>$(function($) { $('#menu-projects').addClass('active'); });</script>
+{% endblock %}

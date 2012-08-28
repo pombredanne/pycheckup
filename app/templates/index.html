@@ -227,4 +227,7 @@
 {% endblock %}
 
 
-{% block js %}{% static_js 'overview' 2 %}{% endblock %}
+{% block js %}
+  {% static_js 'overview' 2 %}
+  <script>$(function($) { $('#menu-overview').addClass('active'); });</script>
+{% endblock %}
