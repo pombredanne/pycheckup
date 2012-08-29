@@ -1,4 +1,5 @@
 import math
+from django.core.cache import cache
 from pycheckup import mongo
 
 
@@ -22,21 +23,29 @@ def distribution(name):
     if name not in TYPES:
         raise ValueError
 
+    cache_key = 'distribution-%s' % name
+    cached = cache.get(cache_key)
+    if cached is not None:
+        return cached
+
     data = get_latest(TYPES[name][0], TYPES[name][1])
     data.sort()
 
     keys = get_key_range(TYPES[name][2])
 
-    result = []
+    counts = []
     for r in keys:
         def in_range(x): return r[0] <= x <= r[1]
-        result.append((r[0], r[1], len(filter(in_range, data))))
+        counts.append((r[0], r[1], len(filter(in_range, data))))
 
-    return {
-        'data': result,
-        'min': min(result, key=lambda x: x[2])[2],
-        'max': max(result, key=lambda x: x[2])[2]
+    result = {
+        'data': counts,
+        'min': min(counts, key=lambda x: x[2])[2],
+        'max': max(counts, key=lambda x: x[2])[2]
     }
+
+    cache.set(cache_key, result, 3600)
+    return result
 
 
 def get_key_range(max, steps=15):
@@ -55,14 +64,22 @@ def correlate(x, y):
     if x not in TYPES or y not in TYPES:
         raise ValueError
 
+    cache_key = 'correlate-%s-%s' % (x, y)
+    cached = cache.get(cache_key)
+    if cached is not None:
+        return cached
+
     x_values = get_latest(TYPES[x][0], TYPES[x][1])
     y_values = get_latest(TYPES[y][0], TYPES[y][1])
 
-    return {
+    result = {
         'x': x_values,
         'y': y_values,
         'r': pearson_r(x_values, y_values)
     }
+
+    cache.set(cache_key, result, 3600)
+    return result
 
 
 def average(x):

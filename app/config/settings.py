@@ -112,6 +112,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'pycheckup'
+    }
+}
+
+
 POSTMARK_API_KEY    = os.environ.get('POSTMARK_API_KEY')
 POSTMARK_SENDER     = os.environ.get('POSTMARK_SENDER')
 POSTMARK_TEST_MODE  = False
