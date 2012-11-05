@@ -23,7 +23,7 @@ def schedule_updates():
     collection.update({}, {'$set': {'pending': True}}, multi=True)
 
     # Schedule each to be updated
-    for r in collection.find({'pending': True}, fields=('_id'), limit=500):
+    for r in collection.find({'pending': True}, fields=('_id')):
         user, repo_name = r['_id'].split('/')
         check_for_commits.delay(user, repo_name)
 
@@ -36,7 +36,7 @@ def check_for_commits(user, repo_name):
     response = requests.get(url)
     data = json.loads(response.text)
 
-    working_date = datetime(year=2012, month=8, day=26)
+    working_date = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
     one_week_before = working_date - timedelta(days=7)
 
     scheduled_task = False
@@ -166,13 +166,12 @@ def bootstrap_repo(user, repo_name):
     repo.clone()
     repo.load_commits()
 
-    # doc = document.empty(user, repo_name)
-    doc = collection.find_one({'_id': '%s/%s' % (user, repo_name)})
-    if doc is None:
-        raise Exception('%s/%s not in db!!!!!' % (user, repo_name))
+    doc = document.empty(user, repo_name)
+    # doc = collection.find_one({'_id': '%s/%s' % (user, repo_name)})
+    # if doc is None:
+    #    raise Exception('%s/%s not in db!!!!!' % (user, repo_name))
 
-    # working_date = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
-    working_date = datetime(year=2012, month=8, day=5)
+    working_date = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
     one_week = timedelta(days=7)
 
     # one-time probes
@@ -189,6 +188,7 @@ def bootstrap_repo(user, repo_name):
         doc['empty'] = True
         print 'No commits in time period, skipping...'
 
+    # range(31) means the script will grab 31 weeks of history
     else:
         for _ in range(31):
             for c in repo.commits:
